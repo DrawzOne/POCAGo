@@ -1,6 +1,6 @@
 import util.Random
 
-abstract class Player(  val pseudo: String,var inventaire : Inventaire, var pokemons : List[Pokemon],
+abstract class Player(  val pseudo: String, var inventaire : Inventaire, var pokemons : List[Pokemon],
                        var argent : Int = 100
                       ,var positionX : Int = 0 ,var positionY : Int = 0
                        ) {

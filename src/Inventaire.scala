@@ -1,13 +1,14 @@
-class Inventaire {
-  val objets : List[Objet] = null
-  val valeurMax : Integer = 10
-  var valeur : Integer = 0
+class Inventaire() {
+
+  val valeurMax : Int = 10
+  var valeur : Int = 0
+  var objets : Array[Objet] = new Array[Objet](valeurMax)
   
   def estVide() : Boolean = {
     for(objet <- objets) {
-      if (objet != null) return true
+      if (objet != null) return false
     }
-    return false
+    return true
   }
   
   def compteurObjets() : Integer = {
@@ -26,9 +27,10 @@ class Inventaire {
     return false
   }
   
-  def ajouterPokeball(_nom : String, _prix : Integer) : Boolean = {
+  def ajouterObjet(O : Objet) : Boolean = {
     if (valeur < valeurMax) {
-      objets :+ new Pokeball(_nom, _prix)
+      objets(valeur) = O
+      valeur += 1
       return true
     }
     return false

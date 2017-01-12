@@ -5,10 +5,10 @@ class Map(val _x : Integer, val _y : Integer) {
 
   
   def generateMap ()={
-  tab(0)(0) = new Case(null, new Pokemon("A", "Eau", 1, 100, 10), true)
-  tab(0)(1) = new Case(new Pokeball("P1", 25), null, false)
+  tab(0)(0) = new Case(null, new Pokemon("", "Eau", 1, 100, 1), true)
+  tab(0)(1) = new Case(new Pokeball("Pokeball", 25), null, false)
   tab(0)(2) = new Case(null, null, false)
-  tab(1)(0) = new Case(new Pokeball("P2", 25), null, false)
+  tab(1)(0) = new Case(new Pokeball("Pokeball", 25), null, false)
   tab(1)(1) = new Case(null, null, false)
   tab(1)(2) = new Case(null, null, false)
   tab(2)(0) = new Case(null, null, false)

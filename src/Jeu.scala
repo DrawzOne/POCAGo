@@ -67,6 +67,35 @@ class Jeu {
         }
       }
     }
+    
+    def trouverObjet(P : Player) = {
+      if (map.tab(P.positionX)(P.positionY).objet!=null){
+        val objet : Objet = map.tab(P.positionX)(P.positionY).objet
+        if(P.inventaire.ajouterObjet(objet)){
+          println("Tu as trouvé un " + objet.nom + " il s'ajoute à ton inventaire ")
+        }else {
+          println("Tu as trouvé un " + objet.nom + " malheureusement plus de place dans l'inventaire")
+        }
+      }
+    }
+    
+    def rencontrerPokemon(P : Player){
+        if (map.tab(P.positionX)(P.positionY).pokemon!=null){
+          val pokemon : Pokemon = map.tab(P.positionX)(P.positionY).pokemon
+          println("Ouah tu as rencontré un " + pokemon.nom + " Veux tu le capturer ? (O/n)")
+          val scanner = new java.util.Scanner(System.in)
+          val reponse = scanner.nextLine()
+          if(reponse == "O") {
+            if(P.capturerPokemon(pokemon)){
+              println("Felicitations tu as capture " +pokemon.nom)
+            }else {
+              println("Oh non le pokémon s'est echappé de la pokéball")
+            }
+          }
+        }
+        
+      
+    }
   
     def jouer () = {
      val action : String = " "
@@ -74,18 +103,23 @@ class Jeu {
      val scanner = new java.util.Scanner(System.in)
      val line = scanner.nextLine()
      println("Eh bien mon cher " + line + " es tu pret à vivre l'aventure de ta vie et capturer les pokémons les plus rare ?")
-     var Player1 : Player1 = new Player1(line, null, null)
+     var inventaire : Inventaire = new Inventaire()
+     inventaire.ajouterObjet(new Pokeball("Pokeball", 25))
+     var Player1 : Player1 = new Player1(line, inventaire, null)
      map.generateMap()
      map.afficherMap()
      while (action != "e"){
-       print("\nQue veux tu faire maintenant ?\n Se déplacer (d) / Consulter inventaire (i) / Consulter pokémons (p) / Sortir (s)\n")
+       print("\nQue veux tu faire maintenant ?\n Se déplacer (d) / Consulter inventaire (i) / Consulter pokémons (p) / Quitter (q)\n")
        val scanner = new java.util.Scanner(System.in)
        val action = scanner.nextLine()
        action match {
          case "d" => seDeplacer(Player1) 
+         map.afficherMap()
+         trouverObjet(Player1)
+         rencontrerPokemon(Player1)
          case "i" => Player1.inventaire.afficherInventaire()
          case "p" => Player1.afficherPokemons()
-         case "s" => sys.exit
+         case "q" => sys.exit
          map.afficherMap()
         
        }
