@@ -31,5 +31,16 @@ abstract class Player(  val pseudo: String,var inventaire : Inventaire, var poke
       else return false
   } 
  
+  def abandonnerPokemon(p : Pokemon) : Boolean = {
+      for (pok <- pokemons) if (pok.equals(p)) {
+        pokemons.filter(_ != p)
+        return true
+      }
+      return false
+  }
   
+  override def toString : String =
+     "(" + "Nom du joueur : " + pseudo + "Argent : " + argent + "Abscisse : " + positionX + "Ordonnée : " + positionY + ")"
+
+     
 }

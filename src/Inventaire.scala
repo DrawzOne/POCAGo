@@ -3,7 +3,15 @@ abstract class Inventaire {
   val valeurMax : Integer = 10
   var valeur : Integer = 0
   
+  def estVide() : Boolean = {
+    for(objet <- objets) {
+      if (objet != null) return true
+    }
+    return false
+  }
+  
   def compteurObjets() : Integer = {
+    if(estVide()) return 0
     for(objet <- objets) {
       valeur = valeur + 1
     }
@@ -25,5 +33,10 @@ abstract class Inventaire {
     }
     return false
   }
+  
+  def print(args : List[_]) : Unit = {
+    args.foreach(println)
+  }
+  
   
 }
