@@ -1,8 +1,8 @@
 abstract class Pokedex {
   val pokemons : List[Pokemon]
   
-  def print(args : List[_]) : Unit = {
-    args.foreach(println)
+  def afficherPokedex() : Unit = {
+    pokemons.foreach(println)
   }
   
 }

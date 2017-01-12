@@ -2,57 +2,96 @@
 
 class Jeu {
   
-  var map : Map = new Map(3, 3)  
   
-  def generateMap ()={
-  map.tab(0)(0) = new Case(null, new Pokemon("A", "Eau", 1, 100, 10), false)
-  map.tab(0)(1) = new Case(new Pokeball("P1", 25), null, false)
-  map.tab(0)(2) = new Case(null, null, false)
-  map.tab(1)(0) = new Case(new Pokeball("P2", 25), null, false)
-  map.tab(1)(1) = new Case(null, null, false)
-  map.tab(1)(2) = new Case(null, null, true)
-  map.tab(2)(0) = new Case(null, null, false)
-  map.tab(2)(1) = new Case(null, new Pokemon("C", "Terre", 2, 75, 1), false)
-  map.tab(2)(2) = new Case(null, new Pokemon("B", "Feu", 5, 88, 50), false)
-  }
+  val tailleX = 3
+  val tailleY = 3
+  var map : Map = new Map(tailleX, tailleY)  
   
-  def afficherMap () = {
-    for (i <- 0 to 2)
-     for (j <- 0 to 2)
-       map.tab(i)(j).afficherCase()
-  }
+
   
     
   def monter(P : Player)= {
-    map.tab(P.positionX)(P.positionY).isJoueur = false
-    P.positionY = P.positionY + 1
-    map.tab(P.positionX)(P.positionY).isJoueur = true
+    if(P.positionY == 0){
+      println("Impossible")
+    }else{
+      map.tab(P.positionX)(P.positionY).isJoueur = false
+      P.positionY = P.positionY - 1
+      map.tab(P.positionX)(P.positionY).isJoueur = true
+    }
   }  
   
   def descendre(P : Player) = {
-    map.tab(P.positionX)(P.positionY).isJoueur = false
-    P.positionY = P.positionY - 1
-    map.tab(P.positionX)(P.positionY).isJoueur = true
+    if(P.positionY == 2){
+      println("Impossible")
+    }else{
+      map.tab(P.positionX)(P.positionY).isJoueur = false
+      P.positionY = P.positionY + 1
+      map.tab(P.positionX)(P.positionY).isJoueur = true
+    }
   } 
  
   def droite(P : Player) = {
-    map.tab(P.positionX)(P.positionY).isJoueur = false
-    P.positionX = P.positionX + 1
-    map.tab(P.positionX)(P.positionY).isJoueur = true
+    if(P.positionX == 2){
+      println("Impossible")
+    }else{
+      map.tab(P.positionX)(P.positionY).isJoueur = false
+      P.positionX = P.positionX + 1
+      map.tab(P.positionX)(P.positionY).isJoueur = true
+    }
   }
   
   def gauche(P : Player) = {
-    map.tab(P.positionX)(P.positionY).isJoueur = false
-    P.positionX = P.positionX - 1
-    map.tab(P.positionX)(P.positionY).isJoueur = true
+    if(P.positionX == 0){
+      println("Impossible")
+    }else{
+      map.tab(P.positionX)(P.positionY).isJoueur = false
+      P.positionX = P.positionX - 1
+      map.tab(P.positionX)(P.positionY).isJoueur = true
+    }
   }
   
+      
+    def seDeplacer(P : Player) = {
+      var dir = 0
+      while(dir == 0){
+        dir = 1
+        print("Quelle direction voulez vous prendre ? \n Droite (d) / Gauche (g) / Haut (h) / Bas (b)\n")
+        val scanner = new java.util.Scanner(System.in)
+        val direction = scanner.nextLine()
+        direction match {
+          case "d" => (droite(P))
+          case "g" => (gauche(P))
+          case "h" => (monter(P))
+          case "b" => (descendre(P))
+          case _ => dir = 0
+        }
+      }
+    }
   
-  def main(args: Array[String]) {
+    def jouer () = {
+     val action : String = " "
+     println("Bienvenu dans Pokémon Go ! Veuillez choisir votre nom de joueur :")
      val scanner = new java.util.Scanner(System.in)
      val line = scanner.nextLine()
+     println("Eh bien mon cher " + line + " es tu pret à vivre l'aventure de ta vie et capturer les pokémons les plus rare ?")
      var Player1 : Player1 = new Player1(line, null, null)
-     generateMap()
-     afficherMap()
-  }  
+     map.generateMap()
+     map.afficherMap()
+     while (action != "e"){
+       print("\nQue veux tu faire maintenant ?\n Se déplacer (d) / Consulter inventaire (i) / Consulter pokémons (p) / Sortir (s)\n")
+       val scanner = new java.util.Scanner(System.in)
+       val action = scanner.nextLine()
+       action match {
+         case "d" => seDeplacer(Player1) 
+         case "i" => Player1.inventaire.afficherInventaire()
+         case "p" => Player1.afficherPokemons()
+         case "s" => sys.exit
+         map.afficherMap()
+        
+       }
+     }
+  
+  }
+  
+
 }

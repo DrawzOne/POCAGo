@@ -1,5 +1,5 @@
-abstract class Inventaire {
-  val objets : List[Objet]
+class Inventaire {
+  val objets : List[Objet] = null
   val valeurMax : Integer = 10
   var valeur : Integer = 0
   
@@ -34,8 +34,12 @@ abstract class Inventaire {
     return false
   }
   
-  def print(args : List[_]) : Unit = {
-    args.foreach(println)
+  def afficherInventaire() : Unit = {
+    if (estVide()){
+      println("Ton inventaire est vide")
+    }else {
+      objets.foreach(println)
+    }
   }
   
   

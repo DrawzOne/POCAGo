@@ -1,8 +1,8 @@
 import util.Random
 
 abstract class Player(  val pseudo: String,var inventaire : Inventaire, var pokemons : List[Pokemon],
-                       var argent : Integer = 100
-                      ,var positionX : Integer = 0 ,var positionY : Integer = 0
+                       var argent : Int = 100
+                      ,var positionX : Int = 0 ,var positionY : Int = 0
                        ) {
 
 
@@ -37,6 +37,14 @@ abstract class Player(  val pseudo: String,var inventaire : Inventaire, var poke
         return true
       }
       return false
+  }
+  
+  def afficherPokemons () = {
+    if (pokemons == null){
+      println("Tu n'as pas de pokémon")
+    }else{
+      pokemons.foreach(println)
+    }
   }
   
   override def toString : String =

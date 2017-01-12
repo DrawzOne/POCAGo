@@ -4,7 +4,7 @@ class Case(_objet : Objet, _pokemon : Pokemon, _isJoueur : Boolean)   {
   var isJoueur = _isJoueur
   
   def afficherCase () = {
-    println(if (isJoueur == true) "| |" else "|P|")
+    print(if (isJoueur == true) "|  P  |" else "|     |")
   }
   
 }
