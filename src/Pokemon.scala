@@ -29,7 +29,7 @@ class Pokemon(_nom: String, _type: String, _niveau: Integer, _pointsDeVie: Integ
   }
   
   override def toString : String =
-     "(" + "Nom du pokémon : " + nom + "Type : " + Type + "Niveau : " + niveau + "Points de vie : " + pointsDeVie + "Difficulté : " + difficulte + ")"
+     "(" + "Nom du pokémon : " + nom + " Type : " + Type + " Niveau : " + niveau + " Points de vie : " + pointsDeVie + " Difficulté : " + difficulte + ")"
 
    
 }

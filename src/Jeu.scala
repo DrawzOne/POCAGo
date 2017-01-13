@@ -88,7 +88,8 @@ class Jeu {
           if(reponse == "O") {
             if(P.capturerPokemon(pokemon)){
               println("Felicitations tu as capture " +pokemon.nom)
-            }else {
+            }
+            else {
               println("Oh non le pokémon s'est echappé de la pokéball")
             }
           }
@@ -105,22 +106,21 @@ class Jeu {
      println("Eh bien mon cher " + line + " es tu pret à vivre l'aventure de ta vie et capturer les pokémons les plus rare ?")
      var inventaire : Inventaire = new Inventaire()
      inventaire.ajouterObjet(new Pokeball("Pokeball", 25))
-     var Player1 : Player1 = new Player1(line, inventaire, null)
+     var Player1 : Player1 = new Player1(line, inventaire)
      map.generateMap()
-     map.afficherMap()
      while (action != "e"){
+       map.afficherMap()
        print("\nQue veux tu faire maintenant ?\n Se déplacer (d) / Consulter inventaire (i) / Consulter pokémons (p) / Quitter (q)\n")
        val scanner = new java.util.Scanner(System.in)
        val action = scanner.nextLine()
        action match {
          case "d" => seDeplacer(Player1) 
-         map.afficherMap()
          trouverObjet(Player1)
          rencontrerPokemon(Player1)
          case "i" => Player1.inventaire.afficherInventaire()
          case "p" => Player1.afficherPokemons()
          case "q" => sys.exit
-         map.afficherMap()
+         
         
        }
      }

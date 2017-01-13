@@ -1,31 +1,35 @@
 import util.Random
+import collection.mutable
 
-abstract class Player(  val pseudo: String, var inventaire : Inventaire, var pokemons : List[Pokemon],
-                       var argent : Int = 100
+
+abstract class Player(  val pseudo: String, val inventaire : Inventaire
+                       ,var argent : Int = 100
                       ,var positionX : Int = 0 ,var positionY : Int = 0
                        ) {
 
 
   
-
+    val pokemons = mutable.ListBuffer[Pokemon]()
   
   /* var caseActuelle : Case = new Case(null, null, true) */
 
 
   
   def lancerPokeball(p : Pokemon) : Boolean = { 
-    if(inventaire.retirerPokeball()) { 
-      if (Random.nextInt(100) > p.difficulte) { 
+    //if(inventaire.retirerPokeball()) { 
+      val rand = Random.nextInt(100)
+      println(" " + rand)
+      if (rand > p.difficulte) { 
         return true
       }
       else return false
-    }
-    return false
+  //  }
+   // return false
   }
   
   def capturerPokemon(p : Pokemon) : Boolean = {
       if (lancerPokeball(p)) {
-        pokemons :+ p
+        pokemons += p
         return true
       }
       else return false

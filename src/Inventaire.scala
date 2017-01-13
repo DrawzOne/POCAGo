@@ -1,8 +1,10 @@
+import collection.mutable
+
 class Inventaire() {
 
   val valeurMax : Int = 10
   var valeur : Int = 0
-  var objets : Array[Objet] = new Array[Objet](valeurMax)
+  var objets = mutable.ListBuffer[Objet]()
   
   def estVide() : Boolean = {
     for(objet <- objets) {
@@ -29,7 +31,7 @@ class Inventaire() {
   
   def ajouterObjet(O : Objet) : Boolean = {
     if (valeur < valeurMax) {
-      objets(valeur) = O
+      objets += O
       valeur += 1
       return true
     }
