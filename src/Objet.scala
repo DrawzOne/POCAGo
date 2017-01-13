@@ -1,4 +1,6 @@
-abstract class Objet(val _nom: String) {
+
+
+abstract class Objet(val _nom: String) extends Serializable {
   val nom = _nom
   
   override def toString : String =

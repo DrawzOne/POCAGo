@@ -1,5 +1,6 @@
 import collection.mutable
 
+
 class Inventaire() {
 
   val valeurMax : Int = 10

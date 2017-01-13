@@ -1,11 +1,13 @@
+import pokemons.Pokemon
 
 
-class Jeu {
+class Jeu extends Serializable{
   
   
-  val tailleX = 3
-  val tailleY = 3
+  val tailleX = 10
+  val tailleY = 10
   var map : Map = new Map(tailleX, tailleY)  
+  var Player1 : Player1 = new Player1("", new Inventaire())
   
 
   
@@ -21,7 +23,7 @@ class Jeu {
   }  
   
   def descendre(P : Player) = {
-    if(P.positionY == 2){
+    if(P.positionY == tailleY){
       println("Impossible")
     }else{
       map.tab(P.positionX)(P.positionY).isJoueur = false
@@ -31,7 +33,7 @@ class Jeu {
   } 
  
   def droite(P : Player) = {
-    if(P.positionX == 2){
+    if(P.positionX == tailleX){
       println("Impossible")
     }else{
       map.tab(P.positionX)(P.positionY).isJoueur = false
@@ -72,7 +74,8 @@ class Jeu {
       if (map.tab(P.positionX)(P.positionY).objet!=null){
         val objet : Objet = map.tab(P.positionX)(P.positionY).objet
         if(P.inventaire.ajouterObjet(objet)){
-          println("Tu as trouvé un " + objet.nom + " il s'ajoute à ton inventaire ")
+          map.tab(P.positionX)(P.positionY).objet = null
+          println("\nTu as trouvé un(e) " + objet.nom + " il s'ajoute à ton inventaire ")
         }else {
           println("Tu as trouvé un " + objet.nom + " malheureusement plus de place dans l'inventaire")
         }
@@ -87,10 +90,8 @@ class Jeu {
           val reponse = scanner.nextLine()
           if(reponse == "O") {
             if(P.capturerPokemon(pokemon)){
+              map.tab(P.positionX)(P.positionY).pokemon = null
               println("Felicitations tu as capture " +pokemon.nom)
-            }
-            else {
-              println("Oh non le pokémon s'est echappé de la pokéball")
             }
           }
         }
@@ -100,26 +101,29 @@ class Jeu {
   
     def jouer () = {
      val action : String = " "
-     println("Bienvenu dans Pokémon Go ! Veuillez choisir votre nom de joueur :")
+     println("Bienvenu dans Pokémon Go ! Choisis ton magnifique nom de joueur mon ami :")
      val scanner = new java.util.Scanner(System.in)
      val line = scanner.nextLine()
+     Player1.pseudo = line
      println("Eh bien mon cher " + line + " es tu pret à vivre l'aventure de ta vie et capturer les pokémons les plus rare ?")
-     var inventaire : Inventaire = new Inventaire()
-     inventaire.ajouterObjet(new Pokeball("Pokeball", 25))
-     var Player1 : Player1 = new Player1(line, inventaire)
-     map.generateMap()
-     while (action != "e"){
+
+     map.genererMap()
+     map.placerPokemons()
+     map.placerObjets()
+     var cond = "";
+     while (cond != "q"){
        map.afficherMap()
+       trouverObjet(Player1)
+       rencontrerPokemon(Player1)
        print("\nQue veux tu faire maintenant ?\n Se déplacer (d) / Consulter inventaire (i) / Consulter pokémons (p) / Quitter (q)\n")
        val scanner = new java.util.Scanner(System.in)
        val action = scanner.nextLine()
        action match {
          case "d" => seDeplacer(Player1) 
-         trouverObjet(Player1)
-         rencontrerPokemon(Player1)
          case "i" => Player1.inventaire.afficherInventaire()
          case "p" => Player1.afficherPokemons()
-         case "q" => sys.exit
+         case "q" => cond = "q"
+         case _ => println("Ce n'est pas une action valide")
          
         
        }

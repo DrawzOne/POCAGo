@@ -3,13 +3,26 @@ import scala.swing.BorderPanel.Position._
 import event._
 import java.awt.{ Color, Graphics2D }
 import scala.util.Random
+import java.io._
 
 object Main {
   
   def main(args: Array[String]) {
      var Jeu : Jeu = new Jeu()
-     Jeu.jouer()
 
+     
+     Jeu.jouer()
+     
+    val charge = new ObjectOutputStream(new FileOutputStream("/home/adnan/Bureau/Jeu"))
+    charge.writeObject(Jeu)
+    charge.close
+     
+    val lire = new ObjectInputStream(new FileInputStream("/home/adnan/Bureau/Jeu"))
+    val stock = lire.readObject.asInstanceOf[Jeu]
+    lire.close
+
+     //(4) print the object that was read back in
+    println(stock)
      
   } 
   /*

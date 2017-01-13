@@ -1,4 +1,6 @@
-class Pokemon(_nom: String, _type: String, _niveau: Integer, _pointsDeVie: Integer, _difficulte : Integer) {
+package pokemons
+
+abstract class Pokemon(_nom: String, _type: String, _niveau: Integer, _pointsDeVie: Integer, _difficulte : Integer) extends Serializable {
   var difficulte = _difficulte
   val nom = _nom
   val Type = _type

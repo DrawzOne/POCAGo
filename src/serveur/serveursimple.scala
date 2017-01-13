@@ -8,10 +8,16 @@ import java.io.BufferedInputStream
 import java.io.PrintStream
 import java.io.InputStream
 import java.io.BufferedOutputStream
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import collection.mutable 
 
 object serveursimple {
-  case class User(sock :Socket, is : InputStream, ps :PrintStream, name : String)
+  
+
+
+
+ case class User(sock :Socket, is : InputStream, ps :PrintStream, name : String)
   
   def main(args : Array[String]) : Unit = {
     val users = mutable.Buffer[User]()
@@ -24,14 +30,8 @@ object serveursimple {
       users += User(sock, is, os, name)
       }
     }
-    os.println("Hi there. ")
-    os.flush()
-    while(is.available()<1){Thread.sleep(100)}
-    val buf = new Array[Byte](is.available)
-    is.read(buf)
-    val input = new String(buf)
-    println(input)
-    os.println(input)
-    os.flush()
+
   }
-} */ 
+} 
+*/
+
