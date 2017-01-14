@@ -1,5 +1,5 @@
 import pokemons.Pokemon
-
+import attaques._
 
 class Jeu extends Serializable{
   
@@ -85,19 +85,30 @@ class Jeu extends Serializable{
     def rencontrerPokemon(P : Player){
         if (map.tab(P.positionX)(P.positionY).pokemon!=null){
           val pokemon : Pokemon = map.tab(P.positionX)(P.positionY).pokemon
-          println("Ouah tu as rencontré un " + pokemon.nom + " Veux tu le capturer ? (O/n)")
+          println("\nOuah tu as rencontré un " + pokemon.nom + " Veux tu le capturer(cap) le combattre (com) ou tout simplement l'ignorer (i)")
           val scanner = new java.util.Scanner(System.in)
           val reponse = scanner.nextLine()
-          if(reponse == "O") {
+          if(reponse == "cap") {
             if(P.capturerPokemon(pokemon)){
               map.tab(P.positionX)(P.positionY).pokemon = null
               println("Felicitations tu as capture " +pokemon.nom)
             }
+          }else if(reponse == "com"){
+             if(P.pokemons == null)
+               println("Tu n'as pas de pokemon pour combattre, il faut d'abord en capturer un")
+             else{
+               val combat : Combat = new Combat(P.choisirPokemon(), pokemon)
+               combat.combatPokemonSauvage()
+               map.tab(P.positionX)(P.positionY).pokemon = null
+             }
           }
         }
         
       
     }
+    
+
+    
   
     def jouer () = {
      val action : String = " "

@@ -4,13 +4,12 @@ import attaques._
 import types.Plante
 
 class Bulbizarre(niveau : Integer) 
-      extends Pokemon("Bulbizarre", niveau, 3*niveau + 15 , 20) with Plante{
+      extends Pokemon("Bulbizarre", niveau, 3*niveau + 30 , 20) with Plante{
   
   
-  val attaque1 = new AttNormal("frottement", 25)
-  val attaque2 = new AttPlante("fouet lianes", 40)
+  val attaque1 = new AttNormal("frottement", niveau*2 + 7)
+  val attaque2 = new AttPlante("fouet lianes", niveau*2 + 10)
   
-  val attaques = new Array[Attaque](2) 
   attaques(0) = attaque1
   attaques(1) = attaque2
 }

@@ -1,7 +1,7 @@
 import util.Random
 import collection.mutable
 import pokemons.Pokemon
-
+import attaques._
 
 abstract class Player(  var pseudo: String, val inventaire : Inventaire
                        ,var argent : Int = 100
@@ -58,6 +58,28 @@ abstract class Player(  var pseudo: String, val inventaire : Inventaire
       pokemons.foreach(println)
     }
   }
+  
+    def afficherPokemonsCombat() = {
+      var i = 0
+      for (pok <- pokemons){
+        println(i + ". " + pok.nom)
+        i += 1
+      }
+    }
+    
+    def choisirPokemon() : Pokemon = {
+      println("Choisi ton pokémon qui va combattre")
+      afficherPokemonsCombat()
+      val scanner = new java.util.Scanner(System.in)
+      val choix = scanner.nextLine()
+      
+      return pokemons(choix.toInt)
+      
+      
+    }
+  
+  
+
   
   override def toString : String =
      "(" + "Nom du joueur : " + pseudo + "Argent : " + argent + "Abscisse : " + positionX + "Ordonnée : " + positionY + ")"

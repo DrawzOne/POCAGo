@@ -4,12 +4,11 @@ import attaques._
 import types.Eau
 
 class Carapuce(niveau : Integer) 
-      extends Pokemon("Carapuce",  niveau, 3*niveau + 22 , 23) with Eau{
+      extends Pokemon("Carapuce",  niveau, 3*niveau + 31 , 23) with Eau{
   
-  val attaque1 = new AttEau("pistolet à eau", 25)
-  val attaque2 = new AttNormal("griffe", 40)
+  val attaque2 = new AttEau("pistolet à eau", niveau*2 + 10)
+  val attaque1 = new AttNormal("griffe", niveau*2 + 6)
   
-  val attaques = new Array[Attaque](2) 
   attaques(0) = attaque1
   attaques(1) = attaque2
   

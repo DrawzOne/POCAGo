@@ -5,10 +5,18 @@ import java.awt.{ Color, Graphics2D }
 import scala.util.Random
 import java.io._
 
+import pokemons._
+
 object Main {
   
   def main(args: Array[String]) {
      var Jeu : Jeu = new Jeu()
+     
+    /* val poke1 : Pokemon= new Salameche(5)
+     val poke2 : Pokemon = new Carapuce(3)
+     
+     val combat : Combat = new Combat(poke1, poke2)
+     combat.combatPokemon()*/
 
      
      Jeu.jouer()
