@@ -1,4 +1,5 @@
-import pokemons.Pokemon
+import pokemons._
+
 
 
 class Case(_objet : Objet, _pokemon : Pokemon, _isJoueur : Boolean) extends Serializable  {

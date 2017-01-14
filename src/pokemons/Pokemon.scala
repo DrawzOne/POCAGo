@@ -1,13 +1,14 @@
 package pokemons
 
-abstract class Pokemon(_nom: String, _type: String, _niveau: Integer, _pointsDeVie: Integer, _difficulte : Integer) extends Serializable {
-  var difficulte = _difficulte
+import types._
+
+abstract class Pokemon(_nom: String,  _niveau: Integer, _pointsDeVie: Integer, _difficulte : Integer) extends Serializable {
+  var difficulte = _difficulte //difficulte pour capturer le pokémon
   val nom = _nom
-  val Type = _type
   var niveau = _niveau
   var experience = 0
-  var pointsDeVieMax = 100
-  var pointsDeVie = pointsDeVieMax
+  var pointsDeVie = _pointsDeVie
+  var pointsDeVieMax = pointsDeVie
   
   def combattre(p : Pokemon) : Unit = {
     pointsDeVie = pointsDeVie - 20
@@ -31,7 +32,7 @@ abstract class Pokemon(_nom: String, _type: String, _niveau: Integer, _pointsDeV
   }
   
   override def toString : String =
-     "(" + "Nom du pokémon : " + nom + " Type : " + Type + " Niveau : " + niveau + " Points de vie : " + pointsDeVie + " Difficulté : " + difficulte + ")"
+     "(" + "Nom du pokémon : " + nom +  " Niveau : " + niveau + " Points de vie : " + pointsDeVie + " Difficulté : " + difficulte + ")"
 
    
 }

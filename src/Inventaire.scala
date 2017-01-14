@@ -24,7 +24,7 @@ class Inventaire() {
   
   def retirerPokeball() : Boolean = {
     for (objet <- objets) if (objet.isInstanceOf[Pokeball]) {
-      objets.filter(_ != objet)
+      objets -= objet
       return true
     }
     return false

@@ -57,7 +57,7 @@ class Jeu extends Serializable{
       var dir = 0
       while(dir == 0){
         dir = 1
-        print("Quelle direction voulez vous prendre ? \n Droite (d) / Gauche (g) / Haut (h) / Bas (b)\n")
+        print("Quelle direction veux-tu prendre ? \n Droite (d) / Gauche (g) / Haut (h) / Bas (b)\n")
         val scanner = new java.util.Scanner(System.in)
         val direction = scanner.nextLine()
         direction match {

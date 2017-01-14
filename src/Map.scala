@@ -1,6 +1,7 @@
 import util.Random
 import pokemons._
 
+
 class Map(val _x : Integer, val _y : Integer) extends Serializable{
   val x = _x
   val y = _y
