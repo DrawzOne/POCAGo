@@ -12,6 +12,7 @@ abstract class Player(  var pseudo: String, val inventaire : Inventaire
 
   
     val pokemons = mutable.ListBuffer[Pokemon]()
+    val pokemonsValide = mutable.ListBuffer[Pokemon]()
   
   /* var caseActuelle : Case = new Case(null, null, true) */
 
@@ -36,6 +37,7 @@ abstract class Player(  var pseudo: String, val inventaire : Inventaire
   def capturerPokemon(p : Pokemon) : Boolean = {
       if (lancerPokeball(p)) {
         pokemons += p
+        pokemonsValide += p
         
         //send.socket
         return true
@@ -43,6 +45,20 @@ abstract class Player(  var pseudo: String, val inventaire : Inventaire
       else return false
   } 
  
+  def isPokemonValide(pok : Pokemon) = {
+
+    if(pok.pointsDeVie == 0){
+        pokemonsValide -= pok
+      }  
+  }
+  
+  def soignerPokemons(){
+    for(pok <- pokemons){
+      if(pok.pointsDeVie == 0)
+        pokemonsValide += pok
+      pok.pointsDeVie = pok.pointsDeVieMax
+    }
+  }
   def abandonnerPokemon(p : Pokemon) : Boolean = {
       for (pok <- pokemons) if (pok.equals(p)) {
         pokemons.filter(_ != p)
@@ -52,33 +68,47 @@ abstract class Player(  var pseudo: String, val inventaire : Inventaire
   }
   
   def afficherPokemons () = {
-    if (pokemons == null){
+    if (!isPokemons()){
       println("Tu n'as pas de pokémon")
     }else{
       pokemons.foreach(println)
     }
   }
   
-    def afficherPokemonsCombat() = {
-      var i = 0
-      for (pok <- pokemons){
-        println(i + ". " + pok.nom)
-        i += 1
+    def afficherPokemonsValide() = {
+      var i = 1
+      for (pok <- pokemonsValide){
+
+          println(i + ". " + pok.nom)
+          i += 1
+        
       }
     }
     
     def choisirPokemon() : Pokemon = {
       println("Choisi ton pokémon qui va combattre")
-      afficherPokemonsCombat()
+      afficherPokemonsValide()
       val scanner = new java.util.Scanner(System.in)
       val choix = scanner.nextLine()
       
-      return pokemons(choix.toInt)
+      return pokemonsValide(choix.toInt - 1)
       
       
     }
   
+  def isPokemonValide() : Boolean = {
+    for(pok <- pokemons) {
+      if (pok != null && pok.pointsDeVie > 0) return true
+    }
+    return false
+  }
   
+  def isPokemons() : Boolean = {
+    for(pok <- pokemons) {
+      if (pok != null) return true
+    }
+    return false
+  }
 
   
   override def toString : String =

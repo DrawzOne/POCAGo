@@ -7,32 +7,31 @@ import java.io._
 
 import pokemons._
 
-object Main {
+object Main extends App{
   
-  def main(args: Array[String]) {
-     var Jeu : Jeu = new Jeu()
+  //def main(args: Array[String]) {
      
-    /* val poke1 : Pokemon= new Salameche(5)
-     val poke2 : Pokemon = new Carapuce(3)
-     
-     val combat : Combat = new Combat(poke1, poke2)
-     combat.combatPokemon()*/
 
-     
-     Jeu.jouer()
-     
-    val charge = new ObjectOutputStream(new FileOutputStream("/home/adnan/Bureau/Jeu"))
+    var Jeu : Jeu = new Jeu()
+    Jeu.jouer()
+    
+    val charge = new ObjectOutputStream(new FileOutputStream("../Sauvegarde"))    
     charge.writeObject(Jeu)
     charge.close
-     
-    val lire = new ObjectInputStream(new FileInputStream("/home/adnan/Bureau/Jeu"))
+    
+    val lire = new ObjectInputStream(new FileInputStream("../Sauvegarde"))
     val stock = lire.readObject.asInstanceOf[Jeu]
+    stock.jouer()
+    charge.writeObject(stock)
     lire.close
+    
 
-     //(4) print the object that was read back in
-    println(stock)
+    
+
+    
+   
      
-  } 
+  //} 
   /*
   extends SimpleSwingApplication
   

@@ -12,10 +12,10 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
   def genererMap () = {
     for (i <- 0 to x-1){
       for(j <- 0 to y-1){
-        tab(i)(j) = new Case(null, null, false)
+        tab(i)(j) = new Case(null, null, false, false)
       }
     }
-   tab(0)(0).isJoueur = true
+
   }
   
   
@@ -43,13 +43,43 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     }
   }
   
+  def placerCentrePokemon() = {
+    var cp = (x*y)/18
+    var posx = 0
+    var posy = 0
+    
+    
+    while (cp > 0){
+      posx = Random.nextInt(x)
+      posy = Random.nextInt(y)
+      if(!tab(posx)(posy).centrePokemon && tab(posx)(posy).pokemon == null){
+        tab(posx)(posy).centrePokemon = true
+        cp -= 1
+      }
+    }
+  }
+  
+   def placerPokemon (P : Pokemon) = {
+     var posx = 0
+     var posy = 0
+     var cond = true
+     while (cond){
+       posx = Random.nextInt(x)
+       posy = Random.nextInt(y)
+       if(tab(posx)(posy).pokemon == null){
+          tab(posx)(posy).pokemon = P
+          cond = false
+       }
+     }
+   }
+  
    def placerPokemons () ={
-    var Arcanin = 2 // nombre d'arcanin à placer
-    var Bulbizarre = 5
-    var Carapuce = 5
-    var Pikachu = 3
-    var Roucoups = 15
-    var Salameche = 5
+    var Arcanin = (x*y)/50 // nombre d'arcanin à placer
+    var Bulbizarre = (x*y)/20
+    var Carapuce = (x*y)/20
+    var Pikachu = (x*y)/30
+    var Roucoups = (x*y)/8
+    var Salameche = (x*y)/20
     var posx = 0
     var posy = 0
     var niv= 0
@@ -57,7 +87,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Arcanin > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5)
+      niv = Random.nextInt(5) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Arcanin(niv)
         Arcanin -= 1
@@ -66,7 +96,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Salameche > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5)
+      niv = Random.nextInt(5) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Salameche(niv)
         Salameche -= 1
@@ -75,7 +105,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Pikachu > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5)
+      niv = Random.nextInt(5) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Pikachu(niv)
         Pikachu -= 1
@@ -84,7 +114,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Roucoups > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5)
+      niv = Random.nextInt(5) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Roucoups(niv)
         Roucoups-= 1
@@ -94,7 +124,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Carapuce > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5)
+      niv = Random.nextInt(5) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Carapuce(niv)
         Carapuce -= 1
@@ -103,7 +133,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Bulbizarre > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5)
+      niv = Random.nextInt(5) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Bulbizarre(niv)
         Bulbizarre -= 1
@@ -112,7 +142,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
   }
  
   def placerObjets() = {
-    var pokeball = 30
+    var pokeball = (x*y)/3
     var posx = 0
     var posy = 0
     

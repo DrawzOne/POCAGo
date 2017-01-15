@@ -1,7 +1,7 @@
 import collection.mutable
 
 
-class Inventaire() {
+class Inventaire() extends Serializable{
 
   val valeurMax : Int = 10
   var valeur : Int = 0
