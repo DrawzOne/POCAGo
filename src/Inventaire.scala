@@ -6,6 +6,7 @@ class Inventaire() extends Serializable{
   val valeurMax : Int = 10
   var valeur : Int = 0
   var objets = mutable.ListBuffer[Objet]()
+  objets += new Pokeball("Pokeball", 30)  
   
   def estVide() : Boolean = {
     for(objet <- objets) {
@@ -13,6 +14,8 @@ class Inventaire() extends Serializable{
     }
     return true
   }
+  
+
   
   def compteurObjets() : Integer = {
     if(estVide()) return 0
@@ -40,6 +43,7 @@ class Inventaire() extends Serializable{
   }
   
   def afficherInventaire() : Unit = {
+    println("\nInventaire :")
     if (estVide()){
       println("Ton inventaire est vide")
     }else {

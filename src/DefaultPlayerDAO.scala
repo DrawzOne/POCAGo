@@ -1,4 +1,4 @@
-import scala.slick.session.Database
+/*import scala.slick.session.Database
 import Database.threadLocalSession
 import slick.jdbc.{StaticQuery => Q, GetResult}
 import javax.sql.DataSource
@@ -116,4 +116,4 @@ val createTablePokeball =
     )
   }
  
-}
+}*/

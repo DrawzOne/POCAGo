@@ -1,4 +1,4 @@
-import pokemons._
+/*import pokemons._
 
 trait PlayerDAO {
   def getInfosPlayerById(id : Int) : Seq[Player]
@@ -10,4 +10,4 @@ trait PlayerDAO {
   def getPositionsByPlayerId(id : Int) : String
  
   def deletePokemonById(idPl : Int, idPo : Int) : Unit
-}
+}*/

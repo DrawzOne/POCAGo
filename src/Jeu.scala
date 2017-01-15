@@ -1,4 +1,4 @@
-import pokemons.Pokemon
+import pokemons._
 import attaques._
 
 class Jeu() extends Serializable{
@@ -67,22 +67,28 @@ class Jeu() extends Serializable{
           case "b" => (descendre(P))
           case _ => dir = 0
         }
+        map.afficherMap()
       }
     }
     
-    def trouverObjet(P : Player) = {
+    def trouverObjet(P : Player) : Boolean = {
       if (map.tab(P.positionX)(P.positionY).objet!=null){
         val objet : Objet = map.tab(P.positionX)(P.positionY).objet
+
         if(P.inventaire.ajouterObjet(objet)){
           map.tab(P.positionX)(P.positionY).objet = null
           println("\nTu as trouvé un(e) " + objet.nom + " il s'ajoute à ton inventaire ")
+          
         }else {
           println("Tu as trouvé un " + objet.nom + " malheureusement plus de place dans l'inventaire")
+         
         }
+        return true
       }
+      return false
     }
     
-    def rencontrerPokemon(P : Player){
+    def rencontrerPokemon(P : Player) : Boolean ={
         if (map.tab(P.positionX)(P.positionY).pokemon!=null){
           val pokemon : Pokemon = map.tab(P.positionX)(P.positionY).pokemon
           println("\nOuah tu as rencontré un " + pokemon.nom + " ! Veux tu le capturer(cap) le combattre (com) ou tout simplement l'ignorer (i)")
@@ -114,17 +120,20 @@ class Jeu() extends Serializable{
               
              }
           }
+          return true
         }
-        
+        return false
       
     }
     
-    def EntrerCentrePokemon(P : Player){
+    def entrerCentrePokemon(P : Player) : Boolean = {
       if (map.tab(P.positionX)(P.positionY).centrePokemon){
         println("\nBienvenu dans le centre Pokémon, nous allons soigner vos Pokémons")
         P.soignerPokemons()
         println("Vos pokémons ont recuperé l'ensemble de leurs points de  vie. Au plaisir de vous revoir")
+        return true
       }
+      return false
     }
     
     
@@ -137,34 +146,49 @@ class Jeu() extends Serializable{
        println("Eh bien mon cher " + Player1.pseudo + " es tu pret à vivre l'aventure de ta vie et capturer les pokémons les plus rare ?")
        println("\nDans ce monde fabuleux, de petites créatures appelées Pokemon se dissimulent.")
        println("Ton but en tant que dresseur sera d'en capturer le maximum puis les faire combattre contre d'autre pokémons sauvages")
-       println("afin qu'ils puissent monter en niveau. Pour pouvoir les capturer tu trouveras des pokéballs sur ton chemin") 
+       println("afin qu'ils puissent monter en niveau. Pour pouvoir les capturer nous t'avons laissé une pokéball dans ton intenvaire. Tu en trouveras d'autre sur ton chemin") 
        println("N'hésite surtout pas à passer dans les centres pokémons pour soigner tes pokémons blessés")
+       println("\nAh et j'oubliais, je te confie mon Pikachu, maintenant que je suis un dresseur à la retraite j'en ai plus besoin. Je compte sur toi pour en prendre soin !")
      }else {
        println("Re la bienvenue " + Player1.pseudo + ". Tu nous as bien manqué")
      }
+      val scanner = new java.util.Scanner(System.in)
+      val line = scanner.nextLine()
     
     }
-
     
-  
-    def jouer () = {
-     val action : String = " "
-
-     intro()
+    def creerMap() = {
      map.genererMap()
      map.tab(Player1.positionX)(Player1.positionY).isJoueur = true
      map.placerPokemons()
      map.placerObjets()
      map.placerCentrePokemon()
+    }
+
+    
+    def event () = {
+      val b1 = trouverObjet(Player1)
+      val b2 = rencontrerPokemon(Player1)  
+      val b3 = entrerCentrePokemon(Player1)
+      if(b1 || b2 || b3){
+         val scanner = new java.util.Scanner(System.in)
+         scanner.nextLine()
+         map.afficherMap()
+       }
+      
+    }
+  
+    def jouer () = {
+     val action : String = " "
+
+     intro()
+     creerMap()
+
+     val scanner = new java.util.Scanner(System.in)
      var cond = "";
-     
      while (cond != "q"){
-       map.afficherMap()
-       trouverObjet(Player1)
-       rencontrerPokemon(Player1)
-       EntrerCentrePokemon(Player1)
+       event()
        print("\nQue veux tu faire maintenant ?\n Se déplacer (d) / Consulter inventaire (i) / Consulter pokémons (p) / Quitter (q)\n")
-       val scanner = new java.util.Scanner(System.in)
        val action = scanner.nextLine()
        action match {
          case "d" => seDeplacer(Player1) 

@@ -21,7 +21,6 @@ abstract class Player(  var pseudo: String, val inventaire : Inventaire
   def lancerPokeball(p : Pokemon) : Boolean = { 
     if(inventaire.retirerPokeball()) { 
       val rand = Random.nextInt(100)
-      println(" " + rand)
       if (rand > p.difficulte) { 
         return true
       }else{
@@ -44,7 +43,7 @@ abstract class Player(  var pseudo: String, val inventaire : Inventaire
       }
       else return false
   } 
- 
+  
   def isPokemonValide(pok : Pokemon) = {
 
     if(pok.pointsDeVie == 0){

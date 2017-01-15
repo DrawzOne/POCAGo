@@ -42,16 +42,20 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
       }
     }
   }
+
   
   def placerCentrePokemon() = {
-    var cp = (x*y)/18
+
+    var cp = (x*y)/20
+    var x1 = 0
+    var y1 = 0
     var posx = 0
     var posy = 0
     
     
     while (cp > 0){
-      posx = Random.nextInt(x)
-      posy = Random.nextInt(y)
+      posx = Random.nextInt(x) 
+      posy = Random.nextInt(y) 
       if(!tab(posx)(posy).centrePokemon && tab(posx)(posy).pokemon == null){
         tab(posx)(posy).centrePokemon = true
         cp -= 1
