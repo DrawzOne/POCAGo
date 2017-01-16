@@ -4,7 +4,7 @@ import attaques._
 import types.Feu
 
 class Salameche(niveau : Integer) 
-extends Pokemon("Salameche", niveau, 3*niveau + 29 , 35) with Feu{
+extends Pokemon("Salameche", niveau, 3*niveau + 29 , niveau/2 + 24) with Feu{
   
   
   val attaque1 = new AttNormal("Coup de Boule", niveau*2 + 7)

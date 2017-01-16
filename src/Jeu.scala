@@ -6,8 +6,11 @@ class Jeu() extends Serializable{
   
   val tailleX = 10
   val tailleY = 10
+  var mapByUser : Map = null
   var map : Map = new Map(tailleX, tailleY)  
+  var currentMap : Map = map
   var Player1 : Player1 = new Player1("", new Inventaire())
+  
   
   
   
@@ -16,29 +19,29 @@ class Jeu() extends Serializable{
     if(P.positionY == 0){
       println("Impossible")
     }else{
-      map.tab(P.positionX)(P.positionY).isJoueur = false
+      currentMap.tab(P.positionX)(P.positionY).isJoueur = false
       P.positionY = P.positionY - 1
-      map.tab(P.positionX)(P.positionY).isJoueur = true
+      currentMap.tab(P.positionX)(P.positionY).isJoueur = true
     }
   }  
   
   def descendre(P : Player) = {
-    if(P.positionY == tailleY - 1){
+    if(P.positionY == currentMap.y - 1){
       println("Impossible")
     }else{
-      map.tab(P.positionX)(P.positionY).isJoueur = false
+      currentMap.tab(P.positionX)(P.positionY).isJoueur = false
       P.positionY = P.positionY + 1
-      map.tab(P.positionX)(P.positionY).isJoueur = true
+      currentMap.tab(P.positionX)(P.positionY).isJoueur = true
     }
   } 
  
   def droite(P : Player) = {
-    if(P.positionX == tailleX - 1){
-      println("Impossible")
+    if(P.positionX == currentMap.x - 1){
+      changerMap()
     }else{
-      map.tab(P.positionX)(P.positionY).isJoueur = false
+      currentMap.tab(P.positionX)(P.positionY).isJoueur = false
       P.positionX = P.positionX + 1
-      map.tab(P.positionX)(P.positionY).isJoueur = true
+      currentMap.tab(P.positionX)(P.positionY).isJoueur = true
     }
   }
   
@@ -46,9 +49,9 @@ class Jeu() extends Serializable{
     if(P.positionX == 0){
       println("Impossible")
     }else{
-      map.tab(P.positionX)(P.positionY).isJoueur = false
+      currentMap.tab(P.positionX)(P.positionY).isJoueur = false
       P.positionX = P.positionX - 1
-      map.tab(P.positionX)(P.positionY).isJoueur = true
+     currentMap.tab(P.positionX)(P.positionY).isJoueur = true
     }
   }
   
@@ -67,16 +70,16 @@ class Jeu() extends Serializable{
           case "b" => (descendre(P))
           case _ => dir = 0
         }
-        map.afficherMap()
+        currentMap.afficherMap()
       }
     }
     
     def trouverObjet(P : Player) : Boolean = {
-      if (map.tab(P.positionX)(P.positionY).objet!=null){
-        val objet : Objet = map.tab(P.positionX)(P.positionY).objet
+      if (currentMap.tab(P.positionX)(P.positionY).objet!=null){
+        val objet : Objet = currentMap.tab(P.positionX)(P.positionY).objet
 
         if(P.inventaire.ajouterObjet(objet)){
-          map.tab(P.positionX)(P.positionY).objet = null
+          currentMap.tab(P.positionX)(P.positionY).objet = null
           println("\nTu as trouvé un(e) " + objet.nom + " il s'ajoute à ton inventaire ")
           
         }else {
@@ -89,17 +92,17 @@ class Jeu() extends Serializable{
     }
     
     def rencontrerPokemon(P : Player) : Boolean ={
-        if (map.tab(P.positionX)(P.positionY).pokemon!=null){
-          val pokemon : Pokemon = map.tab(P.positionX)(P.positionY).pokemon
-          println("\nOuah tu as rencontré un " + pokemon.nom + " ! Veux tu le capturer(cap) le combattre (com) ou tout simplement l'ignorer (i)")
+        if (currentMap.tab(P.positionX)(P.positionY).pokemon!=null){
+          val pokemon : Pokemon = currentMap.tab(P.positionX)(P.positionY).pokemon
+          println("\nOuah tu as rencontré un " + pokemon.nom + " de niveau " + pokemon.niveau + " ! Veux tu le capturer(cap) le combattre (com) ou tout simplement l'ignorer (i)")
           val scanner = new java.util.Scanner(System.in)
           val reponse = scanner.nextLine()
           if(reponse == "cap") {
             if(P.capturerPokemon(pokemon)){
-              map.tab(P.positionX)(P.positionY).pokemon = null
+              currentMap.tab(P.positionX)(P.positionY).pokemon = null
               println("Felicitations tu as capture " +pokemon.nom)
             }else {
-              map.placerPokemon(pokemon)
+              currentMap.placerPokemon(pokemon)
             }
           }else if(reponse == "com"){
              if(!P.isPokemonValide())
@@ -111,11 +114,11 @@ class Jeu() extends Serializable{
                val monPokemon = P.choisirPokemon()
                val combat : Combat = new Combat(monPokemon, pokemon)
                if(combat.combatPokemonSauvage()){
-                 map.tab(P.positionX)(P.positionY).pokemon = null
+                 currentMap.tab(P.positionX)(P.positionY).pokemon = null
                  
                }else {
                  Player1.isPokemonValide(monPokemon)
-                 map.placerPokemon(pokemon)
+                 currentMap.placerPokemon(pokemon)
                }
               
              }
@@ -127,7 +130,7 @@ class Jeu() extends Serializable{
     }
     
     def entrerCentrePokemon(P : Player) : Boolean = {
-      if (map.tab(P.positionX)(P.positionY).centrePokemon){
+      if (currentMap.tab(P.positionX)(P.positionY).centrePokemon){
         println("\nBienvenu dans le centre Pokémon, nous allons soigner vos Pokémons")
         P.soignerPokemons()
         println("Vos pokémons ont recuperé l'ensemble de leurs points de  vie. Au plaisir de vous revoir")
@@ -149,31 +152,69 @@ class Jeu() extends Serializable{
        println("afin qu'ils puissent monter en niveau. Pour pouvoir les capturer nous t'avons laissé une pokéball dans ton intenvaire. Tu en trouveras d'autre sur ton chemin") 
        println("N'hésite surtout pas à passer dans les centres pokémons pour soigner tes pokémons blessés")
        println("\nAh et j'oubliais, je te confie mon Pikachu, maintenant que je suis un dresseur à la retraite j'en ai plus besoin. Je compte sur toi pour en prendre soin !")
+       
      }else {
        println("Re la bienvenue " + Player1.pseudo + ". Tu nous as bien manqué")
      }
       val scanner = new java.util.Scanner(System.in)
       val line = scanner.nextLine()
+
     
     }
     
     def creerMap() = {
      map.genererMap()
      map.tab(Player1.positionX)(Player1.positionY).isJoueur = true
-     map.placerPokemons()
+     map.placerPokemons(5)
      map.placerObjets()
      map.placerCentrePokemon()
+     currentMap.afficherMap()
+    }
+    
+    def extensionMap (long : Int, nivMax : Int) = { 
+      mapByUser = new Map(long, long)
+      mapByUser.genererMap()
+      mapByUser.placerPokemons(nivMax)
+      mapByUser.placerObjets()
+      mapByUser.placerCentrePokemon()
+      Player1.positionX = 0
+      mapByUser.tab(Player1.positionX)(Player1.positionY).isJoueur = true
+      
+      currentMap = mapByUser
+      
+    }
+    
+    def changerMap() = {
+      println("Tu es arrive au bout de la carte, tu peux maintenant créer ta propre carte ou sinon continuer dans celle ci")
+      println("Alors veux tu créer ta propre carte ? (O/n)")
+      val scanner = new java.util.Scanner(System.in)
+      val rep = scanner.nextLine()
+      var long = 0
+      var nivMax = 100
+      if ( rep == "O"){
+       while(long <= 3){
+        println("Choisis la longueur de ta carte. Elle doit etre plus grande que 3")
+        long = scanner.nextInt()
+       }
+       while(nivMax >= 100){
+        println("Choisis le niveau maximum des pokémons que tu veux rencontrer. Doit etre inferieur a 100")
+        nivMax = scanner.nextInt()
+       }
+        extensionMap(long, nivMax)
+        println("Eh bien bienvenu dans ta propre ville " + Player1.pseudo)
+      }
+      
     }
 
     
     def event () = {
       val b1 = trouverObjet(Player1)
-      val b2 = rencontrerPokemon(Player1)  
+      val b2 = rencontrerPokemon(Player1)
       val b3 = entrerCentrePokemon(Player1)
       if(b1 || b2 || b3){
          val scanner = new java.util.Scanner(System.in)
          scanner.nextLine()
-         map.afficherMap()
+         currentMap.afficherMap()
        }
       
     }

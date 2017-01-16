@@ -4,7 +4,7 @@ import attaques._
 import types.Eau
 
 class Carapuce(niv : Integer) 
-      extends Pokemon("Carapuce",  niv, 3*niv + 31 , 23) with Eau{
+      extends Pokemon("Carapuce",  niv, 3*niv + 31 , niv/2 + 20) with Eau{
   
   val attaque2 = new AttEau("pistolet à eau", niveau*2 + 10)
   val attaque1 = new AttNormal("griffe", niveau*2 + 6)

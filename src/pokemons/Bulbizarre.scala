@@ -4,7 +4,7 @@ import attaques._
 import types.Plante
 
 class Bulbizarre(niveau : Integer) 
-      extends Pokemon("Bulbizarre", niveau, 3*niveau + 30 , 20) with Plante{
+      extends Pokemon("Bulbizarre", niveau, 3*niveau + 30 , niveau/2 + 18) with Plante{
   
   
   val attaque1 = new AttNormal("frottement", niveau*2 + 7)

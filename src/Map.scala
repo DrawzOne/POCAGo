@@ -40,6 +40,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
       for (j <- 0 to y-1){
        tab(j)(i).afficherCase()
       }
+      print("->")
     }
   }
 
@@ -77,7 +78,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
      }
    }
   
-   def placerPokemons () ={
+   def placerPokemons (nivMax : Int) ={
     var Arcanin = (x*y)/50 // nombre d'arcanin à placer
     var Bulbizarre = (x*y)/20
     var Carapuce = (x*y)/20
@@ -91,7 +92,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Arcanin > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5) + 1
+      niv = Random.nextInt(nivMax) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Arcanin(niv)
         Arcanin -= 1
@@ -100,7 +101,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Salameche > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5) + 1
+      niv = Random.nextInt(nivMax) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Salameche(niv)
         Salameche -= 1
@@ -109,7 +110,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Pikachu > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5) + 1
+      niv = Random.nextInt(nivMax) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Pikachu(niv)
         Pikachu -= 1
@@ -118,7 +119,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Roucoups > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5) + 1
+      niv = Random.nextInt(nivMax) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Roucoups(niv)
         Roucoups-= 1
@@ -128,7 +129,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Carapuce > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5) + 1
+      niv = Random.nextInt(nivMax) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Carapuce(niv)
         Carapuce -= 1
@@ -137,7 +138,7 @@ class Map(val _x : Integer, val _y : Integer) extends Serializable{
     while (Bulbizarre > 0){
       posx = Random.nextInt(x)
       posy = Random.nextInt(y)
-      niv = Random.nextInt(5) + 1
+      niv = Random.nextInt(nivMax) + 1
       if(tab(posx)(posy).pokemon == null){
         tab(posx)(posy).pokemon = new Bulbizarre(niv)
         Bulbizarre -= 1
