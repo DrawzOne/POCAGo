@@ -3,8 +3,8 @@ package pokemons
 import attaques._
 import types.Feu
 
-class Salameche(niveau : Integer) 
-extends Pokemon("Salameche", niveau, 3*niveau + 29 , niveau/2 + 24) with Feu{
+class Salameche(niv: Integer) 
+extends Pokemon("Salameche", niv, 3*niv + 29 , niv/2 + 24) with Feu{
   
   
   val attaque1 = new AttNormal("Coup de Boule", niveau*2 + 7)

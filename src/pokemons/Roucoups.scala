@@ -3,8 +3,8 @@ package pokemons
 import attaques._
 import types.Vol
 
-class Roucoups(niveau : Integer) 
-extends Pokemon("Roucoups", niveau, 3*niveau + 19 , niveau/2 + 8) with Vol {
+class Roucoups(niv : Integer) 
+extends Pokemon("Roucoups", niv, 3*niv + 19 , niv/2 + 8) with Vol {
   
   val attaque1 = new AttNormal("Pigeon", niveau*2 + 5)
   val attaque2 = new AttVol("Roucoulement", niveau*2 + 8)

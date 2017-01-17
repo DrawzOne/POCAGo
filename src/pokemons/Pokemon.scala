@@ -16,8 +16,8 @@ abstract class Pokemon(_nom: String,  _niveau: Integer, _pointsDeVie: Integer, _
   
   
   def progressionCombat(p : Pokemon) : Unit = { 
-    experience = experience + p.difficulte
-    println(nom + " a gagné " + p.difficulte + " points d'experiences suite a ce combat")
+    experience = experience + p.difficulte * 2
+    println(nom + " a gagné " + p.difficulte*2 + " points d'experiences suite a ce combat")
   }
   
   def monterDeNiv() = {

@@ -3,8 +3,8 @@ import types._
 import attaques._
 
 
-class Arcanin(niveau : Integer) 
-      extends Pokemon("Arcanin",  niveau, 3*niveau + 35, niveau/2 + 30) with Feu{
+class Arcanin(niv : Integer) 
+      extends Pokemon("Arcanin",  niv, 3*niv + 35, niv/2 + 30) with Feu{
   
 
   val attaque1 = new AttNormal("charge", niveau*2 + 8)

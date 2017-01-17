@@ -3,8 +3,8 @@ package pokemons
 import attaques._
 import types._
 
-class Pikachu(niveau : Integer) 
-extends Pokemon("Pikachu", niveau, 3*niveau + 22 , niveau/2 + 20) with Elektrik {
+class Pikachu(niv : Integer) 
+extends Pokemon("Pikachu", niv, 3*niv + 22 , niv/2 + 20) with Elektrik {
  
   val attaque1 = new AttNormal("queue de fer", niveau*2 + 9)
   val attaque2 = new AttElektrik("tonnerre", niveau*2 + 13)
@@ -13,7 +13,7 @@ extends Pokemon("Pikachu", niveau, 3*niveau + 22 , niveau/2 + 20) with Elektrik 
   attaques(1) = attaque2
   
   def evolution1() : Boolean = {
-    if(niveau == 10){
+    if(niveau == 7){
       nom = "Raichu" 
       pointsDeVie += 20
       pointsDeVieMax += 20
