@@ -5,10 +5,10 @@ import java.io._;
 object ToString {
  
     /** Read the object from Base64 string. */
-    def fromByteArray(data: Array[Byte]) : Object = {
+    def fromByteArray(data: Array[Byte]) : Jeu = {
         var ois:ObjectInputStream = new ObjectInputStream( 
                                         new ByteArrayInputStream(  data ) );
-        var o: Object  = ois.readObject();
+        var o: Jeu  = ois.readObject().asInstanceOf[Jeu];
         ois.close();
         return o;
     }

@@ -27,19 +27,25 @@ object Main extends App{
     
     
     
-    var data = ToString.toByteArray(new Player1("A", new Inventaire()));
-    System.out.println("Encoded serialized version");
-    var some : Player1 = ToString.fromByteArray(data).asInstanceOf[Player1];
-    System.out.println("\n\nReconstituted object");
-    System.out.println(some);
+
     
-   
-    val bos = new BufferedOutputStream(new FileOutputStream("Données.dat"))
+
+
+    /*
+    val byteArray = Files.readAllBytes(Paths.get("../Données.dat"))
+
+    var Sauvegarde : Jeu = ToString.fromByteArray(byteArray)
+    Sauvegarde.jouer()
+    
+    var data = ToString.toByteArray(Sauvegarde);
+    val bos = new BufferedOutputStream(new FileOutputStream("../Données.dat"))
     Stream.continually(bos.write(data))
     bos.close()
-  
-    val byteArray = Files.readAllBytes(Paths.get("/Données.dat"))
-    ToString.fromByteArray(byteArray)
+    println("Encoded serialized version");
+    var some : Jeu = ToString.fromByteArray(data).asInstanceOf[Jeu];
+    println("\n\nReconstituted object");
+ 	*/
+    
 }
 
     
@@ -53,4 +59,3 @@ object Main extends App{
 
   
 
-}
